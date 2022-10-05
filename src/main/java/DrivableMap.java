@@ -7,9 +7,8 @@
  * created the constructor for you already.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.awt.List;
+import java.util.*;
 
 class DrivableMap {
     HashMap<String, Drivable> drivable_map;
@@ -28,7 +27,13 @@ class DrivableMap {
      *       Return true if the Drivable was added to drivable_map.
      */
 
-
+    public boolean addDrivable(String id, Drivable obj){
+        if(! drivable_map.containsKey(id)){
+            drivable_map.put(id, obj);
+            return drivable_map.containsKey(id);
+        }
+        return false;
+    }
 
 
     /* TODO: Write a method named hasFasterThan that takes an int (a speed)
@@ -37,7 +42,17 @@ class DrivableMap {
      * You may want to use drivable_map.keys() or drivable_map.values() to
      * iterate through drivable_map.
      */
-
+        public boolean hasFasterThan(int speed){
+            Set<String> finder = drivable_map.keySet();
+            Iterator<String> find = finder.iterator();
+            while(find.hasNext()){
+                String found = find.next();
+                if (drivable_map.get(found).getMaxSpeed() >= speed){
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
 
@@ -46,7 +61,18 @@ class DrivableMap {
      *       returns a List containing all of the Tradable items in
      *       drivable_map.
      */
-
+        public ArrayList getTradable(){
+            ArrayList canTarde = new ArrayList<Drivable>();
+            Set<String> finder = drivable_map.keySet();
+            Iterator<String> find = finder.iterator();
+            while(find.hasNext()){
+                String found = find.next();
+                if (drivable_map.get(found) instanceof Tradable){
+                   canTarde.add(drivable_map.get(found));
+                }
+            }
+            return canTarde;
+        }
 
 
     
